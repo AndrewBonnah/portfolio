@@ -1,0 +1,253 @@
+:root {
+  --content-max-w: 1100px;
+  --content-gap: 15px;
+  --content-pad: 15px;
+}
+
+
+
+body{
+  display:grid;
+  grid-template-columns:repeat(11,1fr);   /* five equal tracks */      /* MDN basic grid guide :contentReference[oaicite:0]{index=0} */
+  padding-right: 15px;
+  font-family: Helvetica, sans-serif, Arial;
+}
+
+#andrew-b a{
+  /* Push everything that follows this element to the right in a flex row */
+  margin-left: auto;
+
+  /* Layout & style */
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  text-decoration: none;
+  padding-inline: 0.25rem;
+  /* optional: color: currentColor; */
+  
+}
+
+#social-link a{
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.75rem;   /* space between name and icon */
+  line-height: 1;
+  text-decoration: none;
+  /* optional: color: currentColor; */
+  
+  /* If header is a CSS grid, make sure it hugs the right edge */
+  justify-self: end;
+}
+
+
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-inline: 1rem;
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  font-family: Helvetica, Arial, sans-serif;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+/* centre cell: column 6 of 11 (1-based index) */
+#sidebar-toggle-wrapper {
+  grid-column: 1;
+  background-color: transparent;
+  cursor: pointer;
+  border: 0px;
+  display:flex;          /* become a flex container            */
+  justify-content:flex-start;
+  align-items: center;
+  grid-template-columns:repeat(4,1fr);
+  gap: 30px;               /* matches page grid */
+  margin:0;               /* top bar touches edge */
+
+
+}
+
+
+#sidebar-toggle {
+  display: block;
+  cursor: pointer;
+}
+
+#chat-sidebar a {
+  padding: 15px 15px;
+}
+
+/* Disable click during transition */
+/* #sidebar-toggle.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+} */
+
+
+/* wrapper stays as you have it … */
+
+/* ─────────────────────────────────────── */
+
+
+
+#link-in {
+  all: unset;               /* kill default button chrome */
+  cursor: pointer;
+  line-height: 0;           /* don’t inherit font line-height */
+  grid-column: 11;
+  display:flex;          /* become a flex container            */
+  justify-content:flex-end;
+  padding:5px;
+}
+
+
+
+@media (prefers-reduced-motion: reduce){
+  /* Disable transitions on both icons */
+  #toggleBtn svg{
+    transition: none;
+  }
+
+  /* Prevent any hover-spin / hover-morph */
+  #toggleBtn:hover svg{
+    transform: none;
+  }
+}
+
+/* Default lines (burger) */
+#line, .line { stroke:#000000; stroke-width:2.25; stroke-linecap:round; transition:transform .3s ease, opacity .3s ease; }
+
+.line.top    { transform-origin: 12px 6px; }
+
+.line.bottom { transform-origin: 12px 18px; }
+
+/* When sidebar is OPEN, morph to an “X” */
+.open .line.top    { transform: translateY(6px)  rotate(45deg); }
+
+.open .line.middle { opacity: 0; transform: translateX(-6px) translateY(14px) rotate(-45deg);}
+
+.open .line.bottom { transform: translateY(-7px) rotate(-45deg); }
+
+
+
+/* ===== Skip-link ===== */
+.skip-link{
+  position:absolute; left:-999px;
+  padding:8px 16px; background:#000; color:#fff; z-index:100;
+}
+
+.skip-link:focus{ left:8px; }
+
+
+/* desktop & tablet ( > 768 px ) */
+/* ===  OUTER PAGE GRID (unchanged)  ================================= */
+.content-container{
+
+  display:grid;
+  grid-column:1 / -1;   /* 5 equal tracks       */ /* MDN repeat() :contentReference[oaicite:1]{index=1} */
+  gap: var(--content-gap);
+  max-width: var(--content-max-w);
+  margin:2rem auto;
+  /* border:1px solid #e0e0e0; */
+  border-radius:.5rem;
+  /* box-shadow:0 0 4px rgba(0,0,0,.05); */
+  padding: var(--content-pad);
+  width: 90%;
+}
+
+.content-block{
+
+  display:grid;
+  grid-column:1 / -1;   /* 5 equal tracks       */ /* MDN repeat() :contentReference[oaicite:1]{index=1} */
+  gap: var(--content-gap);
+  max-width: var(--content-max-w);
+  margin:2rem auto;
+  border:1px solid #e0e0e0;
+  border-radius:.5rem;
+  box-shadow:0 0 4px rgba(0,0,0,.05);
+  padding: var(--content-pad);
+  width: 90%;
+
+}
+
+
+/* ===  SECTION = NESTED 3-COL GRID  (≥ 769 px)  ===================== */
+
+
+/* body spans all three internal columns */
+.section-body {
+   grid-column:1 / 4;
+}
+
+
+.learn-more {
+  grid-column:3 / 4;
+  align-self:end;                         /* bottom of row      */   /* MDN align-self :contentReference[oaicite:3]{index=3} */
+  padding-top:15px;
+  font-weight:600;
+  text-decoration:none;
+  color:#0064c8;
+}
+
+
+.learn-more:hover,
+.learn-more:focus {
+  text-decoration:underline; 
+}
+
+
+/* ====== MOBILE ( ≤ 768 px ) ====== */
+@media (max-width:1000px) {
+
+  .body{
+    padding-right: 0; 
+
+  }
+
+  .content-container > section{
+    grid-column:1 / -1;                 /* full width */
+    margin-inline:auto;                 /* centre the whole block */           /* MDN margin-inline :contentReference[oaicite:4]{index=4} */
+
+    text-align:left;                    /* keeps copy rag-left */
+  }
+
+  .page-tracker{ 
+    display:none; 
+  }
+  /* W3Schools grid + media demos :contentReference[oaicite:5]{index=5}                                                           Reddit breakpoint discussion :contentReference[oaicite:6]{index=6} */
+}
+
+
+
+
+
+/* ===== Scroll tracker (desktop / tablet) ===== */
+.page-tracker{
+  position:fixed; top:100px; left:0;
+  width:120px; font-size:.75rem; color:#666;
+  top:33vh;
+  padding-left: 1rem;
+}
+.page-tracker ul{
+  list-style:none; margin:0; padding:0 0 0 8px;
+  border-left:3px solid #e0e0e0;
+}
+.page-tracker a{
+  display:block; padding:.5rem .75rem;
+  text-decoration:none; color:inherit;
+}
+.page-tracker a.active{
+  font-weight:600; color:#000;
+}
+
+
+.collapsed {
+  display: none;
+}

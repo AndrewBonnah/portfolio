@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Andrew Bonnah</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+  <!-- Skip-link for keyboard users -->
+<a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ───── TOP NAV (z-index 100) ───── -->
+<nav class="navbar">
+      <!-- ⬅️ Absolute-positioned icon container -->
+    <div id="sidebar-toggle-wrapper">
+          <!-- In your markup -->
+    <button id="sidebar-toggle" aria-label="Toggle sidebar" class="open">
+      <!-- Hamburger & X in one <svg>; we’ll animate the paths -->
+      <svg id="burgerIcon" width="44" height="44" viewBox="0 0 24 24">
+        <path class="line top"    d="M1 6h21"></path>
+        <path class="line middle" d="M1 12h21"></path>
+        <path class="line bottom" d="M1 18h21"></path>
+      </svg>
+    </button>
+
+        <!-- col-1 → textgeek.com -->
+    <div id="chat-sidebar" class="nav-list">
+      <a href="/intro">Intro</a>
+      <a href="/projects">Projects</a>
+      <a href="/resume">Resume</a>
+      <a href="/contact">Contact</a>
+    </div>
+
+
+        <a href="https://www.linkedin.com/in/andrew-bonnah/"
+        target="_blank" rel="noopener"
+        id="social-link"
+        aria-label="Andrew Bonnah on LinkedIn">
+        <!-- your SVG unchanged -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24"
+            fill="blue" class="link-in" width="44" height="44" focusable="true">
+            <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
+        </svg>
+
+    </a>
+
+    <a href="/index.html" id="andrew-b">andrew bonnah</a>
+
+      <!-- Primary nav links -->
+
+  
+      <!-- Social / utility -->
+
+</nav>
+
+
+
+
+  <!-- ▸ “Where am I?” tracker (hidden on ≤768 px) ◂ -->
+<!-- Page Section Tracker -->
+<aside class="page-tracker" aria-label="Page section tracker">
+  <h2 class="visually-hidden">Jump to Section</h2>
+  <ul>
+    <li><a href="#intro"    class="tracker-link">Intro</a></li>
+    <li><a href="#projects" class="tracker-link">Projects</a></li>
+    <li><a href="#contact"  class="tracker-link">Contact</a></li>
+    <li><a href="#resume"   class="tracker-link">Resume</a></li>
+  </ul>
+</aside>
+
+
+<!-- ▸ Main content ◂ -->
+
+<!-- =============================
+     Andrew Bonnah – Sectioned Page Content
+     Personalized based on known background & interests.
+     Replace placeholder URLs / email addresses as needed.
+     ============================= -->
+
+<!-- Accessibility utility (include in your global CSS once) -->
+<!--
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+-->
+
+<!-- Page Section Tracker -->
+<aside class="page-tracker" aria-label="Page section tracker">
+  <h2 class="visually-hidden">Jump to Section</h2>
+  <ul>
+    <li><a href="#intro"    class="tracker-link">Intro</a></li>
+    <li><a href="#projects" class="tracker-link">Projects</a></li>
+
+    <li><a href="#contact"  class="tracker-link">Contact</a></li>
+    <li><a href="#resume"   class="tracker-link">Resume</a></li>
+  </ul>
+</aside>
+
+
+<!-- ▸ Main content ◂ -->
+<main class="content-container">
+
+  <!-- Intro -->
+  <section id="intro" class="content-block" aria-labelledby="intro-heading">
+    <div class="section-body">
+      <h2 id="intro-heading">Hi, I'm Andrew Bonnah</h2>
+      <p>I build things where <strong>data, media, and interactivity</strong> meet. My background spans work with major tech teams (Apple, Microsoft), AI prompt design for TV & video production, sports and climate data analysis, and creative coding for the web. I'm currently exploring ways to turn complex data—lyrics, weather, sports stats—into experiences people can explore, learn from, and enjoy.</p>
+      <p>Born in Luxembourg, learning French, and always experimenting.</p>
+    </div>
+    <a href="#projects" class="learn-more"
+       aria-label="Jump to the Projects section to see what I'm building">
+      &rarr; see what I'm building now
+    </a>
+  </section>
+
+
+  <!-- Projects -->
+  <section id="projects" class="content-block" aria-labelledby="projects-heading">
+    <div class="section-body">
+      <h2 id="projects-heading">Current & Recent Projects</h2>
+      <ul class="projects-list">
+        <li>
+          <strong>Flow Score Analyzer for Rap Lyrics</strong> – Python + NLP tool that quantifies rhyme density, phonetic overlap, multisyllabic structures, and flow segments. Web app lets users paste lyrics, process, and view interactive visual breakdowns; long‑term vision includes premium insights & TouchDesigner visualizations.
+        </li>
+        <li>
+          <strong>Lyrics Upload & Processing Web App</strong> – Flask backend saves user‑named lyric files, queues analysis jobs, returns HTML results with progress/loading UI.
+        </li>
+        <li>
+          <strong>Basketball Data Scraper & Dashboard</strong> – Automated Basketball Reference scraping (team rosters by season), standardized historical team abbreviations (e.g., NOP ↔ NOK/NOH), and an interactive dashboard for exploring CSV outputs.
+        </li>
+        <li>
+          <strong>College Football Data Explorer</strong> – Pulls structured JSON from SportsDB API; foundation for comparative team/event visualizations.
+        </li>
+        <li>
+          <strong>Weather & Aviation Heat Study</strong> – Using 20+ years of NCEI climate data and airport landing counts to test predictive heat models with scikit‑learn (and alternatives for long time‑series).
+        </li>
+        <li>
+          <strong>Company Bubble Viz</strong> – Canvas/SVG experiment that draws company "balls" sized by employee count; born from exploring quick visual storytelling in the browser.
+        </li>
+        <li>
+          <strong>Solana Token Experiment</strong> – Early‑stage exploration of launching a small crypto token on Solana; focusing on tooling, wallet flows, and lightweight utility concepts.
+        </li>
+        <li>
+          <strong>Responsive Physics UI Experiments</strong> – matter.js and custom JavaScript motion tests to make interface elements behave with playful, physics‑based interactions.
+        </li>
+      </ul>
+    </div>
+    <a href="#resume" class="learn-more"
+       aria-label="Continue to the Resume section to see my background and experience">
+      &rarr; view my background
+    </a>
+  </section>
+
+
+ 
+
+
+  <!-- Contact -->
+  <section id="contact" class="content-block" aria-labelledby="contact-heading">
+    <div class="section-body">
+      <h2 id="contact-heading">Contact</h2>
+      <p>Want to collaborate, compare datasets, or talk AI + media tooling? Reach out.</p>
+
+      <ul class="contact-list">
+        <li>Email: <a href="mailto:hello@example.com">hello@example.com</a> <!-- TODO: replace with your email --></li>
+        <li>GitHub: <a href="https://github.com/your-username" rel="noopener" target="_blank">github.com/your-username</a></li>
+        <li>LinkedIn: <a href="https://www.linkedin.com/in/your-profile" rel="noopener" target="_blank">LinkedIn Profile</a></li>
+      </ul>
+
+      <!-- Optional embedded contact form -->
+      <!--
+      <form class="contact-form" action="/contact" method="post">
+        <label for="cf-name">Name</label>
+        <input id="cf-name" name="name" type="text" required>
+
+        <label for="cf-email">Email</label>
+        <input id="cf-email" name="email" type="email" required>
+
+        <label for="cf-msg">Message</label>
+        <textarea id="cf-msg" name="message" rows="5" required></textarea>
+
+        <button type="submit">Send</button>
+      </form>
+      -->
+    </div>
+
+    <a href="#contact" class="learn-more"
+       aria-label="Go to the Contact section to get in touch with Andrew Bonnah">
+      &rarr; get in touch
+    </a>
+
+  </section>
+ <!-- Resume -->
+  <section id="resume" class="content-block" aria-labelledby="resume-heading">
+    <div class="section-body">
+      <h2 id="resume-heading">Resume Snapshot</h2>
+      <p>Here’s the short version. A downloadable PDF with full experience, skills, and project detail is below.</p>
+
+      <h3>Highlights</h3>
+      <ul class="resume-highlights">
+        <li>Product + data experience across major tech ecosystems (Apple, Microsoft).</li>
+        <li>AI prompt engineering for broadcast / streaming video workflows (Gen‑3 Alpha Prompting Guide user).</li>
+        <li>Interactive data viz and creative coding (sports stats, weather/climate, lyric analytics).</li>
+        <li>Python tooling, web scraping (Selenium alt libs), and data pipelines to CSV dashboards.</li>
+        <li>Blockchain curiosity: exploring a Solana‑based crypto launch.</li>
+        <li>Multilingual / multicultural perspective: from the Dominican Republic; learning French.</li>
+      </ul>
+
+      <h3>Technical Stack & Interests</h3>
+      <ul class="resume-tech">
+        <li>Python (pandas, scikit‑learn, scraping, data pipelines)</li>
+        <li>JavaScript / TypeScript, Flask, interactive web canvases</li>
+        <li>Data visualization & dashboards</li>
+        <li>APIs: SportsDB, NCEI CDO, custom scraping targets</li>
+        <li>AI prompt design for media tools & generative video</li>
+      </ul>
+
+      <p>
+        <a href="assets/andrew-bonnah-resume.pdf" class="resume-download"
+           aria-label="Download a PDF copy of Andrew Bonnah's resume">
+          Download Resume (PDF)
+        </a>
+      </p>
+    </div>
+    <a href="#intro" class="learn-more"
+       aria-label="Return to the top Intro section">
+      &rarr; back to top
+    </a>
+  </section>
+</main>
+
+</main>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</html>
+
