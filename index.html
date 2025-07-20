@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Andrew Bonnah</title>
   <link rel="stylesheet" href="style.css"/>
+
+
+    <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5LQBZ3LZ');</script>
+<!-- End Google Tag Manager -->
 </head>
   <!-- Skip-link for keyboard users -->
 <a class="skip-link" href="#main">Skip to main content</a>
 
   <!-- ───── TOP NAV (z-index 100) ───── -->
 <nav class="navbar">
+
       <!-- ⬅️ Absolute-positioned icon container -->
     <div id="sidebar-toggle-wrapper">
           <!-- In your markup -->
-    <button id="sidebar-toggle" aria-label="Toggle sidebar" class="open">
+    <button id="sidebar-toggle" aria-label="Toggle sidebar" class="collapsed">
       <!-- Hamburger & X in one <svg>; we’ll animate the paths -->
       <svg id="burgerIcon" width="44" height="44" viewBox="0 0 24 24">
         <path class="line top"    d="M1 6h21"></path>
@@ -22,20 +33,55 @@
         <path class="line bottom" d="M1 18h21"></path>
       </svg>
     </button>
+     <a href="https://www.linkedin.com/in/andrew-bonnah/"
+        target="_blank" rel="noopener"
+        id="abLogoLink"
+        aria-label="Please Follow Andrew Bonnah's LinkedIn!">
+        <!-- your SVG unchanged -->
+    <?xml version="1.0" encoding="UTF-8"?>
+
+<svg id="abLogo" width="110" height="65"
+     viewBox="0 0 300 130"
+     fill="none" stroke="#111" stroke-width="12"
+     stroke-linecap="round" stroke-linejoin="round">
+
+  <!-- lowercase “a” -->
+  <circle class="circle-a" cx="60"  cy="70" r="28"/>
+  <line class="line-a" x1="88" y1="70" x2="88" y2="110"/>
+
+  <!-- lowercase “b” — shifted 27 px left of the original -->
+  <line class="line-b" x1="113" y1="20" x2="113" y2="110"/>
+  <circle class="circle-b" cx="141" cy="70" r="28"/>
+</svg>
 
         <!-- col-1 → textgeek.com -->
-    <div id="chat-sidebar" class="nav-list">
+    <div id="chat-sidebar" class="collapsed">
       <a href="/intro">Intro</a>
       <a href="/projects">Projects</a>
       <a href="/resume">Resume</a>
       <a href="/contact">Contact</a>
-    </div>
+
+  </div>
+  <!-- <a href="/index.html" id="andrew-b">andrew bonnah</a> -->
+
+ 
 
 
-        <a href="https://www.linkedin.com/in/andrew-bonnah/"
+      </div>
+<!-- in the nav class navbar, in the div sidebar-toggle-wrapper there is svg -->
+
+        
+
+    
+
+      <!-- Primary nav links -->
+
+  
+      <!-- Social / utility -->
+    <a href="https://www.linkedin.com/in/andrew-bonnah/"
         target="_blank" rel="noopener"
         id="social-link"
-        aria-label="Andrew Bonnah on LinkedIn">
+        aria-label="Go to Andrew Bonnah's LinkedIn">
         <!-- your SVG unchanged -->
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24"
             fill="blue" class="link-in" width="44" height="44" focusable="true">
@@ -43,13 +89,6 @@
         </svg>
 
     </a>
-
-    <a href="/index.html" id="andrew-b">andrew bonnah</a>
-
-      <!-- Primary nav links -->
-
-  
-      <!-- Social / utility -->
 
 </nav>
 
@@ -63,8 +102,9 @@
   <ul>
     <li><a href="#intro"    class="tracker-link">Intro</a></li>
     <li><a href="#projects" class="tracker-link">Projects</a></li>
-    <li><a href="#contact"  class="tracker-link">Contact</a></li>
     <li><a href="#resume"   class="tracker-link">Resume</a></li>
+    <li><a href="#contact"  class="tracker-link">Contact</a></li>
+
   </ul>
 </aside>
 
@@ -96,24 +136,30 @@
   <ul>
     <li><a href="#intro"    class="tracker-link">Intro</a></li>
     <li><a href="#projects" class="tracker-link">Projects</a></li>
-
-    <li><a href="#contact"  class="tracker-link">Contact</a></li>
     <li><a href="#resume"   class="tracker-link">Resume</a></li>
+    <li><a href="#contact"  class="tracker-link">Contact</a></li>
+    
   </ul>
 </aside>
 
 
 <!-- ▸ Main content ◂ -->
 <main class="content-container">
-
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LQBZ3LZ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
   <!-- Intro -->
   <section id="intro" class="content-block" aria-labelledby="intro-heading">
     <div class="section-body">
       <h2 id="intro-heading">Hi, I'm Andrew Bonnah</h2>
-      <p>I build things where <strong>data, media, and interactivity</strong> meet. My background spans work with major tech teams (Apple, Microsoft), AI prompt design for TV & video production, sports and climate data analysis, and creative coding for the web. I'm currently exploring ways to turn complex data—lyrics, weather, sports stats—into experiences people can explore, learn from, and enjoy.</p>
-      <p>Born in Luxembourg, learning French, and always experimenting.</p>
+
+      <p id="intro-p1">I build things where <strong>data, media, and interactivity</strong> meet. My background spans work with major tech teams (Apple, Microsoft), AI prompt design for TV & video production, sports and climate data analysis, and creative coding for the web. I'm currently exploring ways to turn complex data—lyrics, weather, sports stats—into experiences people can explore, learn from, and enjoy.</p>
+      <p id="intro-p2">Born in Luxembourg, learning French, and always experimenting.</p>
+      
     </div>
-    <a href="#projects" class="learn-more"
+    <img src="static/IMG_0009.jpg" id="intro-photo" alt="Photo of Andrew Bonnah" width=400rem>
+    <a href="#projects-heading" id="intro-learn-more"
        aria-label="Jump to the Projects section to see what I'm building">
       &rarr; see what I'm building now
     </a>
@@ -152,52 +198,13 @@
       </ul>
     </div>
     <a href="#resume" class="learn-more"
-       aria-label="Continue to the Resume section to see my background and experience">
+       aria-label="Jump to the Resume section to see my background and experience">
       &rarr; view my background
     </a>
   </section>
 
 
- 
-
-
-  <!-- Contact -->
-  <section id="contact" class="content-block" aria-labelledby="contact-heading">
-    <div class="section-body">
-      <h2 id="contact-heading">Contact</h2>
-      <p>Want to collaborate, compare datasets, or talk AI + media tooling? Reach out.</p>
-
-      <ul class="contact-list">
-        <li>Email: <a href="mailto:hello@example.com">hello@example.com</a> <!-- TODO: replace with your email --></li>
-        <li>GitHub: <a href="https://github.com/your-username" rel="noopener" target="_blank">github.com/your-username</a></li>
-        <li>LinkedIn: <a href="https://www.linkedin.com/in/your-profile" rel="noopener" target="_blank">LinkedIn Profile</a></li>
-      </ul>
-
-      <!-- Optional embedded contact form -->
-      <!--
-      <form class="contact-form" action="/contact" method="post">
-        <label for="cf-name">Name</label>
-        <input id="cf-name" name="name" type="text" required>
-
-        <label for="cf-email">Email</label>
-        <input id="cf-email" name="email" type="email" required>
-
-        <label for="cf-msg">Message</label>
-        <textarea id="cf-msg" name="message" rows="5" required></textarea>
-
-        <button type="submit">Send</button>
-      </form>
-      -->
-    </div>
-
-    <a href="#contact" class="learn-more"
-       aria-label="Go to the Contact section to get in touch with Andrew Bonnah">
-      &rarr; get in touch
-    </a>
-
-  </section>
- <!-- Resume -->
-  <section id="resume" class="content-block" aria-labelledby="resume-heading">
+   <section id="resume" class="content-block" aria-labelledby="resume-heading">
     <div class="section-body">
       <h2 id="resume-heading">Resume Snapshot</h2>
       <p>Here’s the short version. A downloadable PDF with full experience, skills, and project detail is below.</p>
@@ -228,12 +235,50 @@
         </a>
       </p>
     </div>
+    <a href="#contact" class="learn-more"
+       aria-label="Jump to the Contact section to get in touch with Andrew Bonnah">
+      &rarr; get in touch
+    </a>
+  </section>
+
+
+
+
+  <!-- Contact -->
+  <section id="contact" class="content-block" aria-labelledby="contact-heading">
+    <div class="section-body">
+      <h2 id="contact-heading">Contact</h2>
+      <p>Want to collaborate, compare datasets, or talk AI + media tooling? Reach out.</p>
+
+      <ul class="contact-list">
+        <li>Email: <a href="mailto:hello@example.com">hello@example.com</a> <!-- TODO: replace with your email --></li>
+        <li>GitHub: <a href="https://github.com/your-username" rel="noopener" target="_blank">github.com/your-username</a></li>
+        <li>LinkedIn: <a href="https://www.linkedin.com/in/your-profile" rel="noopener" target="_blank">LinkedIn Profile</a></li>
+      </ul>
+
+      <!-- Optional embedded contact form -->
+      <!--
+      <form class="contact-form" action="/contact" method="post">
+        <label for="cf-name">Name</label>
+        <input id="cf-name" name="name" type="text" required>
+
+        <label for="cf-email">Email</label>
+        <input id="cf-email" name="email" type="email" required>
+
+        <label for="cf-msg">Message</label>
+        <textarea id="cf-msg" name="message" rows="5" required></textarea>
+
+        <button type="submit">Send</button>
+      </form>
+      -->
+    </div>
     <a href="#intro" class="learn-more"
        aria-label="Return to the top Intro section">
       &rarr; back to top
     </a>
   </section>
-</main>
+ <!-- Resume -->
+
 
 </main>
 
