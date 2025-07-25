@@ -173,14 +173,22 @@ function randomColor() {
 
     function randomiseLogoDurations() {
     const root = document.documentElement;      // :root in CSS
-      const rand1 = randInt(100,2500)
+
+
+    // i need to figure out the math that pins thesee to the corners so they move different
+    // like a primitive joint
+      var rand1 = randInt(500,800)
+      var rand2 = randInt(100,300)
       
-      const rand2 = randInt(50,2500)
-      console.log(rand1, rand2)
+      var rand3 = rand1 + randInt(1, 500)
+
+  
+      var rand4 = (rand1 / 4) +(rand3 / 2)
+
       root.style.setProperty('--t-line-a',    `${rand1}ms`);
-      root.style.setProperty('--t-line-b',    `${rand1}ms`);
-      root.style.setProperty('--t-circle-a',  `${rand2}ms`);
-      root.style.setProperty('--t-circle-b',  `${rand2}ms`);
+      root.style.setProperty('--t-line-b',    `${rand2}ms`);
+      root.style.setProperty('--t-circle-a',  `${rand3}ms`);
+      root.style.setProperty('--t-circle-b',  `${rand4}ms`);
     }
 
 
@@ -266,7 +274,144 @@ function randomColor() {
 /* ───────── Scroll-spy for left tracker ───────── */
 document.addEventListener('DOMContentLoaded', () => {
   const sections      = document.querySelectorAll('main section');
+  console.log(sections)
   const trackerLinks  = document.querySelectorAll('.tracker-link');
+  console.log(trackerLinks)
+
+
+  document.querySelectorAll('div.prjcts-image-container img').forEach((img) =>{
+  //  img.classList.add("spinning-border");
+    img.addEventListener('mouseenter', () => {
+      img.classList.remove('breath-out');
+      img.classList.add('breath-in');
+    });
+
+    img.addEventListener('mouseleave', () => {
+      img.classList.remove('breath-in');
+      img.classList.add('breath-out');
+    });
+
+
+  });
+
+
+
+  document.querySelectorAll('div.pfp-image-container img').forEach((img) =>{
+  //  img.classList.add("spinning-border");
+    img.addEventListener('mouseenter', () => {
+      img.classList.remove('breath-out');
+      img.classList.add('breath-in');
+    });
+
+    img.addEventListener('mouseleave', () => {
+      img.classList.remove('breath-in');
+      img.classList.add('breath-out');
+    });
+
+
+  });
+
+
+
+
+
+document.querySelectorAll('img').forEach((img) => {
+  const container = img.parentElement;
+  
+  // Create a separate border element
+  const borderElement = document.createElement('div');
+  borderElement.className = 'rotating-border';
+  borderElement.style.cssText = `
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    border: 3px dashed #0064c8;
+
+    z-index: -1;
+    pointer-events: none;
+  `;
+  
+  // Make container relative positioned
+  container.style.position = 'relative';
+  container.appendChild(borderElement);
+  
+  let rotationAngle = 0;
+  let animationId = null;
+  
+  function rotateBorder() {
+    rotationAngle += 0.5;
+    borderElement.style.transform = `rotate(${rotationAngle}deg)`;
+    animationId = requestAnimationFrame(rotateBorder);
+  }
+  
+  img.addEventListener('mouseenter', () => {
+    img.classList.remove('breath-out');
+    img.classList.add('breath-in');
+    
+    if (!animationId) {
+      rotateBorder();
+    }
+  });
+
+  img.addEventListener('mouseleave', () => {
+    img.classList.remove('breath-in');
+    img.classList.add('breath-out');
+    
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
+      
+      borderElement.style.transition = 'transform 0.5s ease-out';
+      borderElement.style.transform = 'rotate(0deg)';
+      
+      setTimeout(() => {
+        borderElement.style.transition = '';
+        rotationAngle = 0;
+      }, 500);
+    }
+  });
+});
+
+
+  document.querySelectorAll('div.pfp-image-container').forEach((img) =>{
+  //  img.classList.add("spinning-border");
+    img.addEventListener('mouseenter', () => {
+      img.classList.remove('breath-out');
+      img.classList.add('breath-in');
+    });
+
+    img.addEventListener('mouseleave', () => {
+      img.classList.remove('breath-in');
+      img.classList.add('breath-out');
+    });
+
+
+  });
+
+
+
+
+
+
+
+
+
+
+  
+  document.querySelectorAll('ul.projects-cards > li').forEach((li) => {
+    li.addEventListener('mouseenter', () => {
+      li.classList.remove('breath-out');
+      li.classList.add('breath-in');
+    });
+
+    li.addEventListener('mouseleave', () => {
+      li.classList.remove('breath-in');
+      li.classList.add('breath-out');
+    });
+  });
 
 
   const observer = new IntersectionObserver((entries) => {
@@ -278,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
         );
       }
     });
-  }, { threshold: 0.9 });   // 25 % visible = “active”
+  }, { threshold: 0.55 });   // 25 % visible = “active”
 
   sections.forEach(sec => observer.observe(sec));
 });

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects Section - Restructured</title>
+    <style>
+        /* Your existing spinning border animation */
+        @keyframes spin-border {
+            0%   { transform: rotate(0deg); }
+            25%  { transform: rotate(90deg); }
+            50%  { transform: rotate(180deg); }
+            75%  { transform: rotate(270deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Modified spinning-border class for div containers */
+        .spinning-border {
+            position: relative;
+            z-index: 10001;
+            display: inline-block;
+            border-radius: 0%;
+            box-sizing: border-box;
+        }
+
+        .spinning-border::before {
+            content: "";
+            position: absolute;
+            top: -0px; 
+            left: -0px; 
+            right: 0px; 
+            bottom: -0px;
+            color: transparent;
+            border-style: inset;
+            border-width: .15em;
+            border-color: #0064c8;
+            border-top-color: #0064c8;
+            border-bottom-color: white;
+            background-color: transparent;
+            border-radius: 50%;
+            z-index: 1001;
+            animation: spin-border 4s linear infinite;
+            box-sizing: border-box;
+            transform-origin: center center;
+        }
+
+        /* Container for images */
+        .image-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 200px; /* Make it square for proper circular border */
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Image styling - perfectly centered */
+        .projects-photo-1 {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;
+            position: relative;
+            z-index: 10002; /* Above the border */
+        }
+
+        /* Basic styling for demo */
+        .content-block-1 {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-body-1 {
+            margin: 0 auto;
+        }
+
+        .projects-cards {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            align-items: start;
+        }
+
+        .projects-cards li {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .projects-learn-more {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.5rem 1rem;
+            background: #0a66c2;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .projects-learn-more:hover {
+            background: #004182;
+        }
+
+        /* Breathing animation classes for hover effects */
+        @keyframes breath-in {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        @keyframes breath-out {
+            0% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .breath-in {
+            animation: breath-in 0.3s ease-out forwards;
+        }
+
+        .breath-out {
+            animation: breath-out 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Projects -->
+    <section id="projects-1" class="content-block-1" aria-labelledby="projects-heading-1">
+        <div class="section-body-1 cols1to3">
+            <h2 id="projects-heading">Recent Projects</h2>
+            <ul class="projects-cards">
+                <li>
+                    <strong style="color:#0a66c2">Phonetic's NetworkX Project</strong> – Python + NLP tool that quantifies rhyme density, phonetic overlap, multisyllabic structures, and flow segments. Web app lets users paste lyrics, process, and view interactive visual breakdowns; long‑term vision includes premium insights & TouchDesigner visualizations.
+                </li>
+                
+                <!-- Wrapped images in div containers -->
+                <div class="image-container spinning-border">
+                    <img src="static/box_whisk.png" class="projects-photo-1" alt="Photo of Andrew Bonnah">
+                </div>
+                
+                <div class="image-container spinning-border">
+                    <img src="static/box_whisk.png" class="projects-photo-1" alt="Photo of Andrew Bonnah">
+                </div>
+                
+                <li>
+                    <strong style="color:#0a66c2">Lyrics Upload & Processing Web App</strong> – Flask backend saves user‑named lyric files, queues analysis jobs, returns HTML results with progress/loading UI.
+                </li>
+                
+                <li>
+                    <strong style="color:#0a66c2">Basketball Data Scraper & Dashboard</strong> – Automated Basketball Reference scraping (team rosters by season), standardized historical team abbreviations (e.g., NOP ↔ NOK/NOH), and an interactive dashboard for exploring CSV outputs.
+                </li>
+                
+                <div class="image-container spinning-border">
+                    <img src="static/box_wisk.png" class="projects-photo-1" alt="Photo of Andrew Bonnah">
+                </div>
+            </ul>
+            
+            <a href="#resume" class="projects-learn-more" aria-label="Jump to the Resume section to see my background and experience">
+                <span>&rarr; view my background</span>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Your existing JavaScript with modifications for div containers
+        document.addEventListener('DOMContentLoaded', () => {
+            // Apply spinning border and hover effects to image containers
+            document.querySelectorAll('.image-container').forEach((container) => {
+                container.addEventListener('mouseenter', () => {
+                    container.classList.remove('breath-out');
+                    container.classList.add('breath-in');
+                });
+
+                container.addEventListener('mouseleave', () => {
+                    container.classList.remove('breath-in');
+                    container.classList.add('breath-out');
+                });
+            });
+            
+            // Keep your existing li hover effects
+            document.querySelectorAll('ul.projects-cards > li').forEach((li) => {
+                li.addEventListener('mouseenter', () => {
+                    li.classList.remove('breath-out');
+                    li.classList.add('breath-in');
+                });
+
+                li.addEventListener('mouseleave', () => {
+                    li.classList.remove('breath-in');
+                    li.classList.add('breath-out');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

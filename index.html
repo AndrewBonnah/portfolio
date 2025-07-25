@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Andrew Bonnah</title>
   <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" type="image/x-icon" object-fit = "cover"  href="static/logo.png">
 
 
     <!-- Google Tag Manager -->
@@ -21,7 +22,7 @@
 
   <!-- ───── TOP NAV (z-index 100) ───── -->
 <nav class="navbar">
-
+  
       <!-- ⬅️ Absolute-positioned icon container -->
     <div id="sidebar-toggle-wrapper">
           <!-- In your markup -->
@@ -52,6 +53,9 @@
   <!-- lowercase “b” — shifted 27 px left of the original -->
   <line class="line-b" x1="113" y1="20" x2="113" y2="110"/>
   <circle class="circle-b" cx="141" cy="70" r="28"/>
+
+
+
 </svg>
 
         <!-- col-1 → textgeek.com -->
@@ -84,7 +88,7 @@
         aria-label="Go to Andrew Bonnah's LinkedIn">
         <!-- your SVG unchanged -->
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24"
-            fill="blue" class="link-in" width="44" height="44" focusable="true">
+            fill="#0a66c2" class="link-in" width="44" height="44" focusable="true">
             <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
         </svg>
 
@@ -95,18 +99,6 @@
 
 
 
-  <!-- ▸ “Where am I?” tracker (hidden on ≤768 px) ◂ -->
-<!-- Page Section Tracker -->
-<aside class="page-tracker" aria-label="Page section tracker">
-  <h2 class="visually-hidden">Jump to Section</h2>
-  <ul>
-    <li><a href="#intro"    class="tracker-link">Intro</a></li>
-    <li><a href="#projects" class="tracker-link">Projects</a></li>
-    <li><a href="#resume"   class="tracker-link">Resume</a></li>
-    <li><a href="#contact"  class="tracker-link">Contact</a></li>
-
-  </ul>
-</aside>
 
 
 <!-- ▸ Main content ◂ -->
@@ -132,7 +124,7 @@
 
 <!-- Page Section Tracker -->
 <aside class="page-tracker" aria-label="Page section tracker">
-  <h2 class="visually-hidden">Jump to Section</h2>
+  <h2 class="visually-hidden"></h2>
   <ul>
     <li><a href="#intro"    class="tracker-link">Intro</a></li>
     <li><a href="#projects" class="tracker-link">Projects</a></li>
@@ -150,15 +142,22 @@
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
   <!-- Intro -->
-  <section id="intro" class="content-block" aria-labelledby="intro-heading">
+  <section id="intro" class="content-block-0" aria-labelledby="intro-heading">
     <div class="section-body">
-      <h2 id="intro-heading">Hi, I'm Andrew Bonnah</h2>
 
-      <p id="intro-p1">I build things where <strong>data, media, and interactivity</strong> meet. My background spans work with major tech teams (Apple, Microsoft), AI prompt design for TV & video production, sports and climate data analysis, and creative coding for the web. I'm currently exploring ways to turn complex data—lyrics, weather, sports stats—into experiences people can explore, learn from, and enjoy.</p>
-      <p id="intro-p2">Born in Luxembourg, learning French, and always experimenting.</p>
+      <h2 id="intro-heading" >Hi, I'm <a href="https://www.linkedin.com/in/andrew-bonnah/" class="custom-link">Andrew Bonnah</a></h2>
+      <br><br><br>
+      <p id="intro-p1"> I build things where <strong>data, media, and interactivity</strong> meet. 
+        My background spans work with major tech teams 
+        (Apple, Microsoft), AI prompt design for TV & video production, sports and climate data analysis,
+         and creative coding for the web. I'm currently exploring ways to turn complex data—lyrics, weather,
+          sports stats—into experiences people can explore, learn from, and enjoy. <br><br>   
+        <div style="text-align:center;"> Born in Luxembourg, learning French, and always experimenting. </div></p>
       
     </div>
+    <div class = "pfp-image-container">
     <img src="static/IMG_0009.jpg" id="intro-photo" alt="Photo of Andrew Bonnah" width=400rem>
+    </div>
     <a href="#projects-heading" id="intro-learn-more"
        aria-label="Jump to the Projects section to see what I'm building">
       &rarr; see what I'm building now
@@ -166,45 +165,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
 
+
   <!-- Projects -->
-  <section id="projects" class="content-block" aria-labelledby="projects-heading">
-    <div class="section-body">
-      <h2 id="projects-heading">Current & Recent Projects</h2>
-      <ul class="projects-list">
+  <section id="projects" class="content-block-1" aria-labelledby="projects-heading-1">
+    <div class="section-body-1 cols1to3">
+      <h2 id="projects-heading">Recent Projects</h2>
+      <ul class="projects-cards">
+
+        
+      <li>
+        
+         <strong style = "color:#0a66c2">Phonetic NetworkX</strong> – Python + NLP tool that quantifies rhyme density, phonetic overlap, multisyllabic structures, and flow segments. Web app lets users paste lyrics, process, and view interactive visual breakdowns; long‑term vision includes premium insights & TouchDesigner visualizations.
+          
+      </li>
+      <div class = "prjcts-image-container">
+        <img src="static/box_whisk.png" class="projects-photo-1" alt="Photo of Andrew Bonnah" width=200rem>
+      </div>
+      <div class = "prjcts-image-container">
+        <img src="static/box_whisk.png" class="projects-photo-1" alt="Photo of Andrew Bonnah" width=200rem>
+      </div> 
         <li>
-          <strong>Flow Score Analyzer for Rap Lyrics</strong> – Python + NLP tool that quantifies rhyme density, phonetic overlap, multisyllabic structures, and flow segments. Web app lets users paste lyrics, process, and view interactive visual breakdowns; long‑term vision includes premium insights & TouchDesigner visualizations.
+        
+          <strong style = "color:#0a66c2">Lyrics Upload & Processing Web App</strong> – Flask backend saves user‑named lyric files, queues analysis jobs, returns HTML results with progress/loading UI.
         </li>
+        
+
+        
         <li>
-          <strong>Lyrics Upload & Processing Web App</strong> – Flask backend saves user‑named lyric files, queues analysis jobs, returns HTML results with progress/loading UI.
+          
+          <strong style = "color:#0a66c2">Basketball Data Scraper & Dashboard</strong> – Automated Basketball Reference scraping (team rosters by season), standardized historical team abbreviations (e.g., NOP ↔ NOK/NOH), and an interactive dashboard for exploring CSV outputs.
+          
         </li>
-        <li>
-          <strong>Basketball Data Scraper & Dashboard</strong> – Automated Basketball Reference scraping (team rosters by season), standardized historical team abbreviations (e.g., NOP ↔ NOK/NOH), and an interactive dashboard for exploring CSV outputs.
-        </li>
-        <li>
-          <strong>College Football Data Explorer</strong> – Pulls structured JSON from SportsDB API; foundation for comparative team/event visualizations.
-        </li>
-        <li>
-          <strong>Weather & Aviation Heat Study</strong> – Using 20+ years of NCEI climate data and airport landing counts to test predictive heat models with scikit‑learn (and alternatives for long time‑series).
-        </li>
-        <li>
-          <strong>Company Bubble Viz</strong> – Canvas/SVG experiment that draws company "balls" sized by employee count; born from exploring quick visual storytelling in the browser.
-        </li>
-        <li>
-          <strong>Solana Token Experiment</strong> – Early‑stage exploration of launching a small crypto token on Solana; focusing on tooling, wallet flows, and lightweight utility concepts.
-        </li>
-        <li>
-          <strong>Responsive Physics UI Experiments</strong> – matter.js and custom JavaScript motion tests to make interface elements behave with playful, physics‑based interactions.
-        </li>
+        <div class = "prjcts-image-container">
+        <img src="static/box_whisk.png" class="projects-photo-1" alt="Photo of Andrew Bonnah" width=200rem>
+        </div>
       </ul>
-    </div>
-    <a href="#resume" class="learn-more"
+
+    <a href="#resume" class="projects-learn-more"
        aria-label="Jump to the Resume section to see my background and experience">
-      &rarr; view my background
-    </a>
+      <span>&rarr; view my background
+    </span></a>
   </section>
 
 
-   <section id="resume" class="content-block" aria-labelledby="resume-heading">
+
+
+
+
+   <section id="resume" class="content-block" aria-labelledby="resume-heading" style="background-color:#f8f9fa; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); border-radius: 8px;">
     <div class="section-body">
       <h2 id="resume-heading">Resume Snapshot</h2>
       <p>Here’s the short version. A downloadable PDF with full experience, skills, and project detail is below.</p>
@@ -229,9 +237,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </ul>
 
       <p>
-        <a href="assets/andrew-bonnah-resume.pdf" class="resume-download"
-           aria-label="Download a PDF copy of Andrew Bonnah's resume">
-          Download Resume (PDF)
+        <a href="https://docs.google.com/document/d/1Lo0tRtRvw1qZTjHDE4dkBCl_QsK89CpmQbyX6jKhXj8/edit?usp=sharing" class="resume-download"
+           aria-label="View my resume."
+           target="_blank">
+          View my Resume
         </a>
       </p>
     </div>
@@ -245,15 +254,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
   <!-- Contact -->
-  <section id="contact" class="content-block" aria-labelledby="contact-heading">
+  <section id="contact" class="content-block" aria-labelledby="contact-heading" style="background-color:#f8f9fa; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); border-radius: 8px;">
     <div class="section-body">
       <h2 id="contact-heading">Contact</h2>
       <p>Want to collaborate, compare datasets, or talk AI + media tooling? Reach out.</p>
 
       <ul class="contact-list">
-        <li>Email: <a href="mailto:hello@example.com">hello@example.com</a> <!-- TODO: replace with your email --></li>
-        <li>GitHub: <a href="https://github.com/your-username" rel="noopener" target="_blank">github.com/your-username</a></li>
-        <li>LinkedIn: <a href="https://www.linkedin.com/in/your-profile" rel="noopener" target="_blank">LinkedIn Profile</a></li>
+        <li>Email: <a href="mailto:bonnah@umich.com" target="_blank">bonnah@umich.edu</a></li>
+        
       </ul>
 
       <!-- Optional embedded contact form -->

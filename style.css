@@ -76,6 +76,7 @@ body{
   
   /* If header is a CSS grid, make sure it hugs the right edge */
   justify-self: end;
+  fill:#0a66c2;
 }
 
 
@@ -109,16 +110,7 @@ body{
 
 
 
-#link-in {
-  all: unset;               /* kill default button chrome */
-  cursor: pointer;
-  line-height: 0;           /* don’t inherit font line-height */
-  grid-column: 11;
-  display:flex;          /* become a flex container            */
-  justify-content:flex-end;
-  padding:5px;
-}
-
+svg .link-in {color:#0a66c2}
 
 
 @media (prefers-reduced-motion: reduce){
@@ -151,6 +143,7 @@ body{
 
 
 
+
 /* When the sidebar has the collapsed class, slant each line */
 #sidebar-toggle-wrapper.collapsed #abLogo .line-a {
   /* 10 px rightward shift over 40 px height ≈ 14° clockwise  */
@@ -165,7 +158,7 @@ body{
   /* 20 px leftward shift over 90 px height ≈ ‑12.5° anticlockwise */
   /* transform-origin: 110px 37px; */
       /* bottom end of the “b” stem */
-  transform:rotate(12.5deg) scale(1, 1) translate(7px, -15px);;
+  transform:rotate(12.5deg) scale(1, 1) translate(7px, -15px);
   
 }
 
@@ -221,9 +214,11 @@ body{
 #abLogo .line-a {
   transition:
     /* A quick elastic squash‑and‑stretch */
+    /* transform time, transform bezier, transform start time */
+
     transform var(--t-line-a) cubic-bezier(.14,.48,.59,.4) 0ms,
     /* Opacity trails the motion by 40 ms for a subtle echo */
-    opacity   240ms ease 40ms,
+
     /* Flash of fill colour (works if you toggle fill somewhere) */
     fill      180ms ease-in-out,
     /* Soft glow follows last so it feels like a comic “whoosh” */
@@ -236,7 +231,7 @@ body{
     /* Different elastic curve + 60 ms delay so it lags circle a */
     transform var(--t-line-b) cubic-bezier(.14,.48,.59,.4) 50ms,
     /* Opacity leads here, giving the two circles a staggered fade */
-    opacity   240ms ease,
+
     /* Stroke colour change (handy if you tint during state changes) */
 
     /* Longer glow, starts later for a trailing feel */
@@ -249,11 +244,9 @@ body{
     /* A quick elastic squash‑and‑stretch */
     transform var(--t-circle-a) cubic-bezier(.68,.24,.72,1.19) 50ms,
     /* Opacity trails the motion by 40 ms for a subtle echo */
-    opacity   240ms ease 40ms,
-    /* Flash of fill colour (works if you toggle fill somewhere) */
-    fill      180ms ease-in-out,
+
     /* Soft glow follows last so it feels like a comic “whoosh” */
-    filter    0ms ease-out 80ms;
+    filter    0ms cubic-bezier(.68,.24,.72,1.19) 80ms;
 }
 
 /* ---------- circle “b” (slightly offset) ---------- */
@@ -262,7 +255,7 @@ body{
     /* Different elastic curve + 60 ms delay so it lags circle a */
     transform var(--t-circle-b) cubic-bezier(.82,.49,.46,.82) 50ms,
     /* Opacity leads here, giving the two circles a staggered fade */
-    opacity   240ms ease,
+
     /* Stroke colour change (handy if you tint during state changes) */
     stroke    220ms linear 30ms,
     /* Longer glow, starts later for a trailing feel */
@@ -319,56 +312,192 @@ body{
   gap: var(--content-gap);
   max-width: var(--content-max-w);
   margin:2rem auto;
-  border:1px solid #e0e0e0;
+
+
+  padding: var(--content-pad);
+  width: 90%;
+
+}
+
+.content-block-0{
+
+  display:grid;
+  grid-column:1 / -1;   /* 5 equal tracks       */ /* MDN repeat() :contentReference[oaicite:1]{index=1} */
+  gap: var(--content-gap);
+  max-width: var(--content-max-w);
+  margin:2rem auto;
+
   border-radius:.5rem;
-  box-shadow:0 0 4px rgba(0,0,0,.05);
+
+  padding: var(--content-pad);
+  width: 90%;
+  
+
+}
+/* ===  SECTION = NESTED 3-COL GRID  (≥ 769 px)  ===================== */
+
+
+#intro .section-body {
+  padding-left: 30px;
+}
+
+.content-block-1 {
+
+  display:grid;
+  grid-column:1 / -1;   /* 5 equal tracks       */ /* MDN repeat() :contentReference[oaicite:1]{index=1} */
+  gap: var(--content-gap);
+  max-width: var(--content-max-w);
+  margin:2rem auto;
+
+
   padding: var(--content-pad);
   width: 90%;
 
 }
 
 
-/* ===  SECTION = NESTED 3-COL GRID  (≥ 769 px)  ===================== */
+/* Parent list styles */
+ul.projects-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+    transition: transform 0.3s ease;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-.section-body {
-   grid-column:1 / 5;
+ul.projects-cards > li {
+  grid-column: span 2;        /* Span both columns */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+
 }
-#intro .section-body {
-  grid-column: 1/3;
+
+ul.projects-cards > img {
+  border-style: dashed;
+  border-width: .15em;
+  border-color: #0064c8;
+  padding:15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  
 }
+
+/* General reset for children */
+ul.projects-cards > * {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor:pointer;
+}
+
+/* Base photo style */
+.projects-photo-1 {
+  max-width: 200px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+  flex-shrink: 0;
+  justify-self: center;
+}
+
+/* Odd-numbered items (e.g., li:nth-child(1), 3, 5...) */
+.projects-cards > *:nth-child(4n+1),
+.projects-cards > *:nth-child(4n+4) {
+  flex-direction: row;
+  text-align: left;
+}
+
+/* Even-numbered items (e.g., li:nth-child(2), 4, 6...) */
+.projects-cards > *:nth-child(4n+2),
+.projects-cards > *:nth-child(4n+3) {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+
+
+
 
 
 /* body spans all three internal columns */
-.section-body #intro-p1 {
-   grid-column:1 / 3;
+
+h2#intro-heading {
+    justify-self: anchor-center;
 }
+
+
+p#intro-p1 {
+    justify-self: left;
+    
+}
+div.pfp-image-container {
+
+  grid-row:1;
+
+    padding: 15px;
+
+}
+
+
+
+img.projects-photo {
+  /* layout in your grid */
+  justify-self: center;
+  max-width: 50%;
+            /* keep it responsive */
+  aspect-ratio: 1 / 1;         /* force a square box */
+  object-fit: cover;           /* crop‑zoom so the circle is illed */
+  border-radius: 50%;          /* circular crop */
+  padding:5px 0 5px 0px;
+
+
+}
+
+div.prjcts-image-container {
+  justify-self: center;
+  padding: 15px;
+
+  
+}
+
 
 img#intro-photo {
   /* layout in your grid */
-  grid-column: 3 / 5;          /* spans columns 3 and 4 */
+  
   max-width: 100%;
   height: auto;                /* keep it responsive */
   aspect-ratio: 1 / 1;         /* force a square box */
   object-fit: cover;           /* crop‑zoom so the circle is illed */
   border-radius: 50%;          /* circular crop */
-  justify-content: center;
+  justify-self: baseline;
+
 }
 
 a#intro-learn-more {
   /* last row only (same idea) */
   grid-row:    2 / 2;
   grid-column:    2 / 2;
-  align-self:end;                         /* bottom of row      */   /* MDN align-self :contentReference[oaicite:3]{index=3} */
+  align-self:end;
+  justify-self: end;                         /* bottom of row      */   /* MDN align-self :contentReference[oaicite:3]{index=3} */
   padding-top:15px;
   font-weight:600;
   text-decoration:none;
   color:#0064c8;
 }
 
+
+
+
+
 .learn-more {
     /* last column only (‑2 → line just before the end, ‑1 → end) */
-
-
   /* last row only (same idea) */
   grid-row:    2 / 2;
   grid-column:    4 / 4;
@@ -378,13 +507,95 @@ a#intro-learn-more {
   font-weight:600;
   text-decoration:none;
   color:#0064c8;
+  
 }
 
+.projects-learn-more {
+    /* last column only (‑2 → line just before the end, ‑1 → end) */
+
+
+  /* last row only (same idea) */
+  grid-row:    2 / 2;
+  grid-column:    4 / 4;
+  display: grid;
+  justify-content: end;                      /* bottom of row      */   /* MDN align-self :contentReference[oaicite:3]{index=3} */
+  padding-top:46px;
+  font-weight:600;
+  text-decoration:none;
+  color:#0064c8;
+}
+
+.custom-link {
+      color: #0064c8;
+      text-decoration: none;
+    }
+.custom-link:hover,
+.custom-link:focus {
+      text-decoration: underline;
+    }
 
 .learn-more:hover,
-.learn-more:focus {
+.learn-more:focus
+ {
   text-decoration:underline; 
 }
+
+/* Only underline the inner text on hover/focus */
+.projects-learn-more span:hover,
+.projects-learn-more span:focus {
+  text-decoration: underline;
+}
+
+a#intro-learn-more:hover,
+a#intro-learn-more:focus {
+  text-decoration:underline; 
+}
+
+@keyframes breath-in {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.03);
+  }
+  100% {
+    transform: translateY(0) scale(1.03);
+  }
+}
+
+@keyframes breath-out {
+  0% {
+    transform: translateY(0) scale(1.03);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+
+
+.breath-in {
+  animation: breath-in 0.6s ease-out forwards;
+}
+
+.breath-out {
+  animation: breath-out 0.6s ease-in forwards;
+}
+
+
+li:hover strong {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
 
 
 /* ====== MOBILE ( ≤ 768 px ) ====== */
@@ -404,22 +615,53 @@ a#intro-learn-more {
     grid-column:1/10 ;
     display: flex;
   }
+
+
+
+
+p#intro-p1 {
+    justify-self: center;
+}
+
+.cols1to3 {
+    grid-column: 1/7;
 }
 
 
 
-/* ====== MOBILE ( ≤ 768 px ) ====== */
-@media (max-width: 1100px) {
-  img#intro-photo {
-  /* layout in your grid */
-  grid-column: 1 / 1;          /* spans columns 3 and 4 */
-  max-width: 100%;
-  height: auto;                /* keep it responsive */
-  aspect-ratio: 1 / 1;         /* force a square box */
-  object-fit: cover;           /* crop‑zoom so the circle is illed */
-  border-radius: 50%;          /* circular crop */
-  justify-content: center;
+
+.projects-learn-more {
+  grid-column:    1 / -1;
+
 }
+
+div.pfp-image-container {
+  grid-column: 1/ 1;          /* spans columns 3 and 4 */
+  grid-row:1;
+  justify-self: center;
+}
+
+p#intro-p1
+  {
+    grid-column: 1/ 3;          /* spans columns 3 and 4 */
+}
+
+a#intro-learn-more {
+  /* last row only (same idea) */
+  grid-row: 3;
+  grid-column: 1;
+  align-self:end; 
+  justify-self:end;                        /* bottom of row      */   /* MDN align-self :contentReference[oaicite:3]{index=3} */
+  padding-top:15px;
+  font-weight:600;
+  text-decoration:none;
+}
+
+
+#intro .section-body {
+  padding-left: 0px;
+}
+
 }
 
 
@@ -441,6 +683,7 @@ a#intro-learn-more {
 .page-tracker a{
   display:block; padding:.5rem .75rem;
   text-decoration:none; color:inherit;
+  text-combine-upright: all;
 }
 .page-tracker a.active{
   font-weight:600; color:#000;
@@ -450,3 +693,6 @@ a#intro-learn-more {
 .collapsed {
   display: none;
 }
+
+
+
