@@ -76,7 +76,8 @@ body{
   
   /* If header is a CSS grid, make sure it hugs the right edge */
   justify-self: end;
-  fill:#0a66c2;
+  fill:#0064c8;
+
 }
 
 
@@ -93,8 +94,17 @@ body{
 }
 
 #chat-sidebar a {
-  padding: 0 15px;
+  padding: 0 10px;
   cursor: pointer;
+  color: #0064c8;
+  font-family: Helvetica, sans-serif, Arial;
+  font-size: 16px;
+  text-decoration: none;
+
+}
+
+#chat-sidebar a:hover {
+  text-decoration: underline;
 }
 
 /* Disable click during transition */
@@ -110,7 +120,7 @@ body{
 
 
 
-svg .link-in {color:#0a66c2}
+svg .link-in {color:#0064c8}
 
 
 @media (prefers-reduced-motion: reduce){
@@ -528,6 +538,7 @@ a#intro-learn-more {
 .custom-link {
       color: #0064c8;
       text-decoration: none;
+      cursor:pointer;
     }
 .custom-link:hover,
 .custom-link:focus {
