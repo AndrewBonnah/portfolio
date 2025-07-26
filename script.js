@@ -378,12 +378,12 @@ document.querySelectorAll('img').forEach((img) => {
 
   document.querySelectorAll('div.pfp-image-container').forEach((img) =>{
   //  img.classList.add("spinning-border");
-    img.addEventListener('mouseenter', () => {
+    img.addEventListener('mouseenter pointerdown', () => {
       img.classList.remove('breath-out');
       img.classList.add('breath-in');
     });
 
-    img.addEventListener('mouseleave', () => {
+    img.addEventListener('mouseleave pointerup', () => {
       img.classList.remove('breath-in');
       img.classList.add('breath-out');
     });
@@ -402,12 +402,12 @@ document.querySelectorAll('img').forEach((img) => {
 
   
   document.querySelectorAll('ul.projects-cards > li').forEach((li) => {
-    li.addEventListener('mouseenter', () => {
+    li.addEventListener('mouseenter pointerdown', () => {
       li.classList.remove('breath-out');
       li.classList.add('breath-in');
     });
 
-    li.addEventListener('mouseleave', () => {
+    li.addEventListener('mouseleave pointerup', () => {
       li.classList.remove('breath-in');
       li.classList.add('breath-out');
     });

@@ -358,8 +358,6 @@ svg .link-in {color:#0064c8}
   gap: var(--content-gap);
   max-width: var(--content-max-w);
   margin:2rem auto;
-
-
   padding: var(--content-pad);
   width: 90%;
 
@@ -451,7 +449,7 @@ div.pfp-image-container {
 
   grid-row:1;
 
-    padding: 15px;
+  padding: 15px;
 
 }
 
@@ -460,28 +458,26 @@ div.pfp-image-container {
 img.projects-photo {
   /* layout in your grid */
   justify-self: center;
-  max-width: 50%;
+  min-width: 25%;
             /* keep it responsive */
   aspect-ratio: 1 / 1;         /* force a square box */
   object-fit: cover;           /* crop‑zoom so the circle is illed */
   border-radius: 50%;          /* circular crop */
   padding:5px 0 5px 0px;
-
-
 }
 
 div.prjcts-image-container {
   justify-self: center;
   padding: 15px;
-
+  aspect-ratio: 1/1;
   
 }
 
 
 img#intro-photo {
   /* layout in your grid */
-  
-  max-width: 100%;
+  min-width: 400px;
+  max-width: 200px;
   height: auto;                /* keep it responsive */
   aspect-ratio: 1 / 1;         /* force a square box */
   object-fit: cover;           /* crop‑zoom so the circle is illed */
