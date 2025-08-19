@@ -16,9 +16,14 @@
 
 function randomColor() {
     var rRand = Math.floor(Math.random() * 256); // 0‒255
+    console.log(rRand)
     var gRand = Math.floor(Math.random() * 256); // 0‒255
+    console.log(gRand)
     var bRand = Math.floor(Math.random() * 256); // 0‒255
-
+    console.log(bRand)
+    //rRand = 250
+    //gRand = 226
+    //bRand = 95
     // optional: return an object or a formatted string
       // randomly choose which channel to zero‑out (0 = r, 1 = g, 2 = b)
     const pick = Math.floor(Math.random() * 5);
@@ -274,68 +279,26 @@ function randomColor() {
 /* ───────── Scroll-spy for left tracker ───────── */
 document.addEventListener('DOMContentLoaded', () => {
   const sections      = document.querySelectorAll('main section');
-  console.log(sections)
   const trackerLinks  = document.querySelectorAll('.tracker-link');
-  console.log(trackerLinks)
 
+  // --- Set up animations ---
 
-  document.querySelectorAll('div.prjcts-image-container img').forEach((img) =>{
-  //  img.classList.add("spinning-border");
-    img.addEventListener('mouseenter', () => {
-      img.classList.remove('breath-out');
-      img.classList.add('breath-in');
-    });
-
-    img.addEventListener('mouseleave', () => {
-      img.classList.remove('breath-in');
-      img.classList.add('breath-out');
-    });
-
-
-  });
-
-
-
-  document.querySelectorAll('div.pfp-image-container img').forEach((img) =>{
-  //  img.classList.add("spinning-border");
-    img.addEventListener('mouseenter', () => {
-      img.classList.remove('breath-out');
-      img.classList.add('breath-in');
-    });
-
-    img.addEventListener('mouseleave', () => {
-      img.classList.remove('breath-in');
-      img.classList.add('breath-out');
-    });
-
-
-  });
-
-
-
-
-
+  // 1. Add rotating border and breath effects to all images
 document.querySelectorAll('img').forEach((img) => {
   const container = img.parentElement;
+    if (!container) return;
   
-  // Create a separate border element
+    // --- Rotating border setup ---
   const borderElement = document.createElement('div');
   borderElement.className = 'rotating-border';
   borderElement.style.cssText = `
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 50%;
-    border: 3px dashed #0064c8;
-
-    z-index: -1;
-    pointer-events: none;
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 50%; border: 3px dashed #0064c8;
+      z-index: -1; pointer-events: none;
   `;
-  
-  // Make container relative positioned
+    if (getComputedStyle(container).position === 'static') {
   container.style.position = 'relative';
+    }
   container.appendChild(borderElement);
   
   let rotationAngle = 0;
@@ -347,73 +310,84 @@ document.querySelectorAll('img').forEach((img) => {
     animationId = requestAnimationFrame(rotateBorder);
   }
   
-  img.addEventListener('mouseenter', () => {
-    img.classList.remove('breath-out');
-    img.classList.add('breath-in');
-    
-    if (!animationId) {
-      rotateBorder();
-    }
-  });
-
-  img.addEventListener('mouseleave', () => {
-    img.classList.remove('breath-in');
-    img.classList.add('breath-out');
-    
+    // Store start/stop functions on the element to be called by other event listeners
+    img.startRotation = () => {
+      if (!animationId) rotateBorder();
+    };
+    img.stopRotation = () => {
     if (animationId) {
       cancelAnimationFrame(animationId);
       animationId = null;
-      
       borderElement.style.transition = 'transform 0.5s ease-out';
       borderElement.style.transform = 'rotate(0deg)';
-      
       setTimeout(() => {
         borderElement.style.transition = '';
         rotationAngle = 0;
       }, 500);
     }
-  });
-});
+    };
 
-
-  document.querySelectorAll('div.pfp-image-container').forEach((img) =>{
-  //  img.classList.add("spinning-border");
-    img.addEventListener('mouseenter pointerdown', () => {
+    // --- Breath effect setup ---
+    img.breathIn = () => {
       img.classList.remove('breath-out');
       img.classList.add('breath-in');
-    });
-
-    img.addEventListener('mouseleave pointerup', () => {
+    };
+    img.breathOut = () => {
       img.classList.remove('breath-in');
       img.classList.add('breath-out');
+    };
+
+    // Default hover behavior: breath and rotate
+    img.addEventListener('mouseenter', () => {
+        img.breathIn();
+        img.startRotation();
     });
-
-
-  });
-
-
-
-
-
-
-
-
-
-
-  
-  document.querySelectorAll('ul.projects-cards > li').forEach((li) => {
-    li.addEventListener('mouseenter pointerdown', () => {
-      li.classList.remove('breath-out');
-      li.classList.add('breath-in');
-    });
-
-    li.addEventListener('mouseleave pointerup', () => {
-      li.classList.remove('breath-in');
-      li.classList.add('breath-out');
+    img.addEventListener('mouseleave', () => {
+        img.breathOut();
+        img.stopRotation();
     });
   });
 
 
+  // 2. Link project captions (li) to their images
+  ['wcapphoto1', 'wcapphoto2', 'wcapphoto3'].forEach(name => {
+    const li = document.querySelector(`.lirotate-${name}`);
+    const img = document.querySelector(`.rotate-${name}`);
+
+    if (li && img) {
+      // When hovering over the caption, trigger the image's effects
+      li.addEventListener('mouseenter', () => {
+        if (img.breathIn) img.breathIn();
+        if (img.startRotation) img.startRotation();
+      });
+      li.addEventListener('mouseleave', () => {
+        if (img.breathOut) img.breathOut();
+        if (img.stopRotation) img.stopRotation();
+      });
+    }
+  });
+
+
+  // 3. Link intro section body and photo for shared hover effect
+  const introPhoto = document.getElementById('intro-photo');
+  const introSectionBody = document.querySelector('#intro .section-body');
+
+  if (introPhoto && introSectionBody) {
+    // When hovering the section body, animate the photo
+    introSectionBody.addEventListener('mouseenter', () => {
+        if (introPhoto.breathIn) introPhoto.breathIn();
+        if (introPhoto.startRotation) introPhoto.startRotation();
+    });
+    introSectionBody.addEventListener('mouseleave', () => {
+        if (introPhoto.breathOut) introPhoto.breathOut();
+        if (introPhoto.stopRotation) introPhoto.stopRotation();
+  });
+
+    // When hovering the photo, it animates itself. No extra link needed.
+  }
+
+
+  // --- Scroll-spy for left tracker ---
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting){
@@ -423,7 +397,89 @@ document.querySelectorAll('img').forEach((img) => {
         );
       }
     });
-  }, { threshold: 0.55 });   // 25 % visible = “active”
+  }, { threshold: 0.51 });
 
   sections.forEach(sec => observer.observe(sec));
+
+  // --- Typing effect for intro heading ---
+  const heading = document.getElementById('intro-heading');
+  if (heading) {
+    const funnyTexts = [
+        "Hi, I'm Trouble!",
+        "Professional Googler.",
+        "I turn coffee into code.",
+        "Not a robot, probably.",
+        "Here for the snacks."
+    ];
+    const funnyText = funnyTexts[Math.floor(Math.random() * funnyTexts.length)];
+    const textBefore = "Hi, I'm ";
+    const linkText = "Andrew Bonnah";
+    const linkHref = "https://www.linkedin.com/in/andrew-bonnah/";
+    const linkClass = "custom-link";
+
+    const normalWeightSpan = `<span style="font-weight: normal;">`;
+    const closingSpan = `</span>`;
+
+    // --- Set min-height to one line of text to prevent layout shift ---
+    heading.innerHTML = `&nbsp;`; // Add a non-breaking space to ensure height is calculated
+    const computedStyle = window.getComputedStyle(heading);
+    const lineHeight = computedStyle.lineHeight;
+    heading.style.minHeight = lineHeight;
+    heading.innerHTML = ''; // Clear for animation
+
+    const finalHtml = `${normalWeightSpan}${textBefore}${closingSpan}<a href="${linkHref}" class="${linkClass}"><strong>${linkText}</strong></a>`;
+
+    function type(text, i, callback) {
+      if (i < text.length) {
+        const typedText = text.substring(0, i + 1);
+        heading.innerHTML = `${normalWeightSpan}${typedText}${closingSpan}`;
+        setTimeout(() => type(text, i + 1, callback), Math.random() * 150 + 50);
+      } else if (callback) {
+        setTimeout(callback, 1000); // Pause before next action
+      }
+    }
+
+    function erase(text, i, callback) {
+      if (i >= 0) {
+        const shortenedText = text.substring(0, i);
+        heading.innerHTML = `${normalWeightSpan}${shortenedText}${closingSpan}`;
+        setTimeout(() => erase(text, i - 1, callback), Math.random() * 100 + 50);
+      } else if (callback) {
+        heading.innerHTML = ''; // Clear before next step
+        callback();
+      }
+    }
+
+    function typeOriginalIntro() {
+        let i = 0;
+        const totalLength = textBefore.length + linkText.length;
+
+        function typeIntro() {
+            if (i < textBefore.length) {
+                const typedTextBefore = textBefore.substring(0, i + 1);
+                heading.innerHTML = `${normalWeightSpan}${typedTextBefore}${closingSpan}`;
+            } else if (i < totalLength) {
+                const linkIndex = i - textBefore.length;
+                const typedLinkText = linkText.substring(0, linkIndex + 1);
+                heading.innerHTML = `${normalWeightSpan}${textBefore}${closingSpan}<a href="${linkHref}" class="${linkClass}"><strong>${typedLinkText}</strong></a>`;
+            }
+
+            i++;
+
+            if (i <= totalLength) {
+                setTimeout(typeIntro, Math.random() * 150 + 50);
+            } else {
+                heading.innerHTML = finalHtml; // Use the final pre-calculated HTML
+            }
+        }
+        typeIntro();
+    }
+
+    // Start the animation sequence
+    type(funnyText, 0, () => {
+      erase(funnyText, funnyText.length, () => {
+        setTimeout(typeOriginalIntro, 500); // Brief pause before typing the real intro
+      });
+    });
+  }
 });

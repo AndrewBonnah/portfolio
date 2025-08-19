@@ -11,14 +11,19 @@
   --t-color-b: rgb(255,255,255);
 }
 
+html {
+  min-height: 100vh; /* Ensure html expands vertically */
+}
+
 
 body{
   display:grid;
   grid-template-columns:repeat(11,1fr);   /* five equal tracks */      /* MDN basic grid guide :contentReference[oaicite:0]{index=0} */
   padding-right: 15px;
+  font-size: 20px;
   font-family: Helvetica, sans-serif, Arial;
+  min-height: 100vh; /* Ensure body expands vertically */
 }
-
 
 .navbar {
   grid-template-columns:repeat(11,1fr);
@@ -368,7 +373,7 @@ svg .link-in {color:#0064c8}
 ul.projects-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-    transition: transform 0.3s ease;
+  transition: transform 0.3s ease;
   gap: 2rem;
   list-style: none;
   padding: 0;
@@ -384,7 +389,7 @@ ul.projects-cards > li {
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-
+  overflow-wrap: break-word;
 }
 
 ul.projects-cards > img {
@@ -406,7 +411,7 @@ ul.projects-cards > * {
 
 /* Base photo style */
 .projects-photo-1 {
-  max-width: 200px;
+  width: 100%;
   height: auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
@@ -438,6 +443,8 @@ ul.projects-cards > * {
 
 h2#intro-heading {
     justify-self: anchor-center;
+    font-size: 4rem; /* Or 300% or 3em */
+    line-height: 30%;
 }
 
 
@@ -470,14 +477,13 @@ div.prjcts-image-container {
   justify-self: center;
   padding: 15px;
   aspect-ratio: 1/1;
-  
+
 }
 
 
 img#intro-photo {
   /* layout in your grid */
-  min-width: 400px;
-  max-width: 200px;
+  max-width: 400px;
   height: auto;                /* keep it responsive */
   aspect-ratio: 1 / 1;         /* force a square box */
   object-fit: cover;           /* crop‑zoom so the circle is illed */
@@ -616,6 +622,13 @@ li:hover strong {
   .page-tracker{ 
     display:none; 
   }
+
+  ul.projects-cards {
+    gap: 1rem; /* Reduced gap for smaller screens */
+  }
+
+
+
   /* W3Schools grid + media demos :contentReference[oaicite:5]{index=5}                                                           Reddit breakpoint discussion :contentReference[oaicite:6]{index=6} */
 
   #sidebar-toggle-wrapper{
@@ -628,12 +641,9 @@ li:hover strong {
 
 p#intro-p1 {
     justify-self: center;
+    align-content: center;
+    text-align: center;
 }
-
-.cols1to3 {
-    grid-column: 1/7;
-}
-
 
 
 
@@ -643,15 +653,12 @@ p#intro-p1 {
 }
 
 div.pfp-image-container {
-  grid-column: 1/ 1;          /* spans columns 3 and 4 */
+  grid-column: 1/ -1;          /* spans columns 3 and 4 */
   grid-row:1;
   justify-self: center;
 }
 
-p#intro-p1
-  {
-    grid-column: 1/ 3;          /* spans columns 3 and 4 */
-}
+
 
 a#intro-learn-more {
   /* last row only (same idea) */
@@ -668,6 +675,24 @@ a#intro-learn-more {
 #intro .section-body {
   padding-left: 0px;
 }
+
+  h2#intro-heading {
+    font-size: 1.5rem; /* Further reduce font size on very small screens */
+    line-height: 1.2;
+  }
+.pfp-image-container {
+  height: min(400px, 80vw); /* Instead of: height: 400px; */
+  width: min(400px, 80vw);  /* Instead of: width: 400px; */
+}
+/* LINES 576-580: Replace fixed dimensions with responsive sizing */
+img#intro-photo {
+  min-height: 0 !important; /* Keep this line */
+  min-width: 0 !important;  /* Keep this line */
+  
+  height: min(400px, 80vw); /* Instead of: height: 400px; */
+  width: min(400px, 80vw);  /* Instead of: width: 400px; */
+}
+
 
 }
 
@@ -700,6 +725,3 @@ a#intro-learn-more {
 .collapsed {
   display: none;
 }
-
-
-
