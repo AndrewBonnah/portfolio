@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: #1a1a1a;
+            border-right: 1px solid #333;
+            padding: 20px;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .upload-section {
+            margin-bottom: 30px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 10px 15px;
+            background: #2a2a2a;
+            border: 2px dashed #444;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .file-input-label:hover {
+            background: #333;
+            border-color: #666;
+        }
+
+        .tracker-list {
+            list-style: none;
+        }
+
+        .tracker-item {
+            padding: 12px;
+            margin-bottom: 8px;
+            background: #2a2a2a;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .tracker-item:hover {
+            background: #333;
+        }
+
+        .tracker-item.active {
+            background: #333;
+            border-color: #4a9eff;
+        }
+
+        .tracker-name {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .tracker-stats {
+            font-size: 12px;
+            color: #888;
+        }
+
+        /* Main content area */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .habit-container {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 95%;
+            max-height: 90%;
+            overflow: auto;
+        }
+
+        .habit-grid-wrapper {
+            display: inline-block;
+            position: relative;
+        }
+
+        .habit-title-row {
+            display: none; /* Hide the title row for now */
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            margin-left: 120px;
+            margin-bottom: 2px;
+        }
+
+        .habit-title-cell {
+            grid-column: span 7;
+            background: #2a2a2a;
+            border-radius: 4px;
+            padding: 6px 10px;
+            color: #e0e0e0;
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .habit-grid {
+            display: grid;
+            gap: 2px;
+            margin-left: 120px;
+            margin-top: 40px;
+        }
+
+        .date-label {
+            position: absolute;
+            font-size: 11px;
+            color: #888;
+            white-space: nowrap;
+            height: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .date-label.left {
+            width: 115px;
+            padding-right: 5px;
+        }
+
+        .day-header {
+            position: absolute;
+            font-size: 12px;
+            color: #888;
+            font-weight: 500;
+            width: 30px;
+            text-align: center;
+            top: 15px;
+        }
+
+        .day-cell {
+            width: 30px;
+            height: 30px;
+            background: #2a2a2a;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .day-cell:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+        .day-cell.active {
+            background: #4a9eff;
+            box-shadow: 0 0 10px rgba(74, 158, 255, 0.5);
+        }
+
+        .day-cell.empty {
+            background: #1a1a1a;
+            cursor: not-allowed;
+            opacity: 0.3;
+        }
+
+        .day-cell.empty:hover {
+            transform: none;
+            background: #1a1a1a;
+        }
+
+        .placeholder {
+            text-align: center;
+            color: #666;
+        }
+
+        .placeholder h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .placeholder p {
+            font-size: 14px;
+        }
+
+        .habit-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .save-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 12px 24px;
+            background: #4a9eff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(74, 158, 255, 0.3);
+        }
+
+        .save-button:hover {
+            background: #3a8eef;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 158, 255, 0.4);
+        }
+
+        /* Create habit section */
+        .create-habit-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+
+        .habit-name-input, .days-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-size: 14px;
+        }
+
+        .habit-name-input:focus, .days-input:focus {
+            outline: none;
+            border-color: #4a9eff;
+        }
+
+        .create-button, .new-file-button, .extend-button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #4a9eff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .create-button:hover, .new-file-button:hover, .extend-button:hover {
+            background: #3a8eef;
+        }
+
+        .extend-button {
+            background: #9b59b6;
+        }
+
+        .extend-button:hover {
+            background: #8e44ad;
+        }
+
+        .new-file-button {
+            background: #666;
+        }
+
+        .new-file-button:hover {
+            background: #777;
+        }
+
+        /* Rename modal */
+        .rename-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .rename-modal input {
+            width: 250px;
+            padding: 10px;
+            margin: 10px 0;
+            background: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: #e0e0e0;
+        }
+
+        .rename-modal button {
+            padding: 8px 16px;
+            margin: 0 5px;
+            background: #4a9eff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Trackers</h2>
+        
+        <div class="upload-section">
+            <div class="file-input-wrapper">
+                <input type="file" id="fileInput" accept=".csv,.txt">
+                <label for="fileInput" class="file-input-label">
+                    📁 Upload CSV/TXT
+                </label>
+            </div>
+        </div>
+
+        <ul class="tracker-list" id="trackerList"></ul>
+        
+        <div class="create-habit-section">
+            <h2 style="margin-top: 30px;">Create New Habit</h2>
+            <input type="text" id="habitName" placeholder="Habit name (optional)" class="habit-name-input">
+            <input type="number" id="habitDays" placeholder="Number of days" min="1" max="365" class="days-input">
+            <button id="createHabitBtn" class="create-button">+ Add Habit</button>
+            <button id="extendHabitBtn" class="extend-button">📈 Extend Current Habit</button>
+            <button id="newFileBtn" class="new-file-button">📄 Start New File</button>
+        </div>
+    </div>
+
+    <div class="main-content" id="mainContent">
+        <div class="placeholder">
+            <h2>No Habits Loaded</h2>
+            <p>Upload a CSV or TXT file to begin tracking</p>
+        </div>
+    </div>
+
+    <button class="save-button" id="saveButton" style="display: none;">
+        💾 Save Progress
+    </button>
+
+    <!-- Rename Modal -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="rename-modal" id="renameModal">
+        <h3>Rename Habit</h3>
+        <input type="text" id="renameInput" placeholder="Enter new name">
+        <div>
+            <button onclick="confirmRename()">Rename</button>
+            <button onclick="closeRenameModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let habitsData = [];
+        let currentHabitIndex = 0;
+        let habitNames = {}; // Store custom names for habits
+        let habitStartDates = {}; // Store start dates for habits
+        let hasUnsavedChanges = false;
+
+        // Prevent accidental closing
+        window.addEventListener('beforeunload', function (e) {
+            if (hasUnsavedChanges && habitsData.length > 0) {
+                const confirmationMessage = 'Are you sure you want to leave? Your tracker data has not been saved!';
+                e.preventDefault();
+                e.returnValue = confirmationMessage;
+                return confirmationMessage;
+            }
+        });
+
+        // Track changes
+        function markAsChanged() {
+            hasUnsavedChanges = true;
+        }
+
+        // File input handler
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    parseCSV(event.target.result);
+                    hasUnsavedChanges = false; // Reset on new file load
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        // Parse CSV format: First 100 rows are metadata (100x100 matrix), then each row is a habit
+        function parseCSV(content) {
+            const lines = content.trim().split('\n');
+            habitsData = [];
+            habitNames = {};
+            habitStartDates = {};
+            
+            // Check if this file has the metadata matrix
+            const hasMetadata = lines.length > 100 && lines[0].split(',').length >= 100;
+            const startRow = hasMetadata ? 100 : 0;
+            
+            // If has metadata, parse habit names from the matrix
+            if (hasMetadata) {
+                const metadataMatrix = [];
+                for (let i = 0; i < 100; i++) {
+                    const row = lines[i].split(',').map(v => parseInt(v.trim()) || 0);
+                    metadataMatrix.push(row);
+                }
+                
+                // Decode habit names from matrix
+                // Each habit name is stored sequentially in the matrix
+                let charIndex = 0;
+                let currentName = '';
+                let habitIndex = 0;
+                
+                for (let row = 0; row < 100; row++) {
+                    for (let col = 0; col < 100; col++) {
+                        const asciiCode = metadataMatrix[row][col];
+                        if (asciiCode === 0) {
+                            // End of a name or empty
+                            if (currentName) {
+                                habitNames['habit_' + habitIndex] = currentName;
+                                habitIndex++;
+                                currentName = '';
+                            }
+                        } else if (asciiCode === 255) {
+                            // Special marker for end of all names
+                            if (currentName) {
+                                habitNames['habit_' + habitIndex] = currentName;
+                            }
+                            row = 100; // Break outer loop
+                            break;
+                        } else {
+                            // Build the current name
+                            currentName += String.fromCharCode(asciiCode);
+                        }
+                    }
+                }
+            }
+            
+            // Parse habit data
+            for (let index = startRow; index < lines.length; index++) {
+                const line = lines[index];
+                const values = line.split(',').map(v => parseInt(v.trim()));
+                if (values.every(v => v === 0 || v === 1)) {
+                    const habitId = 'habit_' + (index - startRow);
+                    
+                    // Find the most recent Monday
+                    const monday = getMostRecentMonday();
+                    
+                    // Calculate how many days since Monday (not including today)
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    const daysSinceMonday = Math.floor((today - monday) / (1000 * 60 * 60 * 24));
+                    
+                    habitsData.push({
+                        id: habitId,
+                        name: habitNames[habitId] || `Habit ${(index - startRow) + 1}`,
+                        data: values,
+                        completed: values.filter(v => v === 1).length,
+                        total: values.length,
+                        startDate: monday,
+                        actualStartDay: daysSinceMonday
+                    });
+                    habitStartDates[habitId] = monday;
+                }
+            }
+
+            if (habitsData.length > 0) {
+                updateSidebar();
+                displayHabit(0);
+                document.getElementById('saveButton').style.display = 'block';
+            }
+        }
+
+        // Get the most recent Monday (or today if it's Monday)
+        function getMostRecentMonday() {
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+            const daysToSubtract = dayOfWeek === 0 ? 6 : (dayOfWeek === 1 ? 0 : dayOfWeek - 1);
+            const monday = new Date(today);
+            monday.setDate(today.getDate() - daysToSubtract);
+            monday.setHours(0, 0, 0, 0);
+            return monday;
+        }
+
+        // Create new habit
+        document.getElementById('createHabitBtn').addEventListener('click', function() {
+            const nameInput = document.getElementById('habitName');
+            const daysInput = document.getElementById('habitDays');
+            const days = parseInt(daysInput.value);
+            
+            if (!days || days < 1) {
+                alert('Please enter a valid number of days');
+                return;
+            }
+            
+            const habitId = 'habit_' + habitsData.length;
+            const habitName = nameInput.value || `Habit ${habitsData.length + 1}`;
+            const monday = getMostRecentMonday();
+            
+            // Calculate how many days since Monday (not including today)
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const daysSinceMonday = Math.floor((today - monday) / (1000 * 60 * 60 * 24));
+            
+            const newHabit = {
+                id: habitId,
+                name: habitName,
+                data: new Array(days).fill(0),
+                completed: 0,
+                total: days,
+                startDate: monday,
+                actualStartDay: daysSinceMonday // Track when habit actually started (0-based index)
+            };
+            
+            habitsData.push(newHabit);
+            habitNames[habitId] = habitName;
+            habitStartDates[habitId] = monday;
+            
+            markAsChanged(); // Mark as changed
+            updateSidebar();
+            displayHabit(habitsData.length - 1);
+            document.getElementById('saveButton').style.display = 'block';
+            
+            // Clear inputs
+            nameInput.value = '';
+            daysInput.value = '';
+        });
+
+        // Extend current habit
+        document.getElementById('extendHabitBtn').addEventListener('click', function() {
+            if (habitsData.length === 0) {
+                alert('No habits to extend. Create or upload a habit first.');
+                return;
+            }
+            
+            const daysInput = document.getElementById('habitDays');
+            const days = parseInt(daysInput.value);
+            
+            if (!days || days < 1) {
+                alert('Please enter a valid number of days to add');
+                return;
+            }
+            
+            // Extend the current habit
+            const habit = habitsData[currentHabitIndex];
+            const newDays = new Array(days).fill(0);
+            habit.data = habit.data.concat(newDays);
+            habit.total = habit.data.length;
+            habit.completed = habit.data.filter(v => v === 1).length;
+            
+            markAsChanged(); // Mark as changed
+            updateSidebar();
+            displayHabit(currentHabitIndex);
+            
+            // Clear input
+            daysInput.value = '';
+            
+            alert(`Added ${days} days to ${habit.name}`);
+        });
+
+        // Start new file
+        document.getElementById('newFileBtn').addEventListener('click', function() {
+            if (habitsData.length > 0) {
+                if (!confirm('This will clear all current habits. Are you sure?')) {
+                    return;
+                }
+            }
+            
+            habitsData = [];
+            habitNames = {};
+            habitStartDates = {};
+            currentHabitIndex = 0;
+            
+            document.getElementById('mainContent').innerHTML = `
+                <div class="placeholder">
+                    <h2>New File Started</h2>
+                    <p>Create your first habit or upload a CSV file</p>
+                </div>
+            `;
+            
+            document.getElementById('trackerList').innerHTML = '';
+            document.getElementById('saveButton').style.display = 'none';
+        });
+
+        // Update sidebar with habit list
+        function updateSidebar() {
+            const trackerList = document.getElementById('trackerList');
+            trackerList.innerHTML = '';
+            
+            habitsData.forEach((habit, index) => {
+                const li = document.createElement('li');
+                li.className = 'tracker-item';
+                if (index === currentHabitIndex) li.classList.add('active');
+                
+                const percentage = Math.round((habit.completed / habit.total) * 100);
+                
+                li.innerHTML = `
+                    <div class="tracker-name">${habit.name}</div>
+                    <div class="tracker-stats">${habit.completed}/${habit.total} days (${percentage}%)</div>
+                `;
+                
+                li.addEventListener('click', () => {
+                    displayHabit(index);
+                });
+                
+                li.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    openRenameModal(index);
+                });
+                
+                trackerList.appendChild(li);
+            });
+        }
+
+        // Rename modal functions
+        let renamingIndex = -1;
+        
+        function openRenameModal(index) {
+            renamingIndex = index;
+            document.getElementById('renameInput').value = habitsData[index].name;
+            document.getElementById('renameModal').style.display = 'block';
+            document.getElementById('modalOverlay').style.display = 'block';
+            document.getElementById('renameInput').focus();
+        }
+        
+        function closeRenameModal() {
+            document.getElementById('renameModal').style.display = 'none';
+            document.getElementById('modalOverlay').style.display = 'none';
+            renamingIndex = -1;
+        }
+        
+        function confirmRename() {
+            if (renamingIndex >= 0) {
+                const newName = document.getElementById('renameInput').value;
+                if (newName) {
+                    habitsData[renamingIndex].name = newName;
+                    habitNames[habitsData[renamingIndex].id] = newName;
+                    updateSidebar();
+                    if (renamingIndex === currentHabitIndex) {
+                        document.querySelector('.habit-title').textContent = newName;
+                    }
+                }
+            }
+            closeRenameModal();
+        }
+        
+        // Allow Enter key to confirm rename
+        document.getElementById('renameInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') confirmRename();
+        });
+
+        // Display habit grid with date labels
+        function displayHabit(index) {
+            currentHabitIndex = index;
+            const habit = habitsData[index];
+            const mainContent = document.getElementById('mainContent');
+            
+            // Always use 7 columns for days of the week
+            const cols = 7; // Monday through Sunday
+            const actualStartDay = habit.actualStartDay || 0;
+            const totalCellsNeeded = actualStartDay + habit.data.length;
+            const rows = Math.ceil(totalCellsNeeded / cols);
+            
+            // Generate grid HTML with date labels
+            let gridHTML = `<h1 class="habit-title">${habit.name}</h1>
+                           <div class="habit-container">
+                           <div class="habit-grid-wrapper">`;
+            
+            // Use the habit's start date (should be a Monday)
+            const startDate = new Date(habit.startDate);
+            
+            // Add day headers (Mo, Tu, We, Th, Fr, Sa, Su)
+            const dayHeaders = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+            for (let col = 0; col < cols; col++) {
+                const left = 120 + (col * 32);
+                gridHTML += `<div class="day-header" style="left: ${left}px;">${dayHeaders[col]}</div>`;
+            }
+            
+            // Add left labels (one for each row) - showing the Monday date of each week
+            for (let row = 0; row < rows; row++) {
+                const weekStartDate = new Date(startDate);
+                weekStartDate.setDate(startDate.getDate() + (row * 7));
+                const dateStr = formatDate(weekStartDate);
+                const top = 40 + (row * 32);
+                gridHTML += `<div class="date-label left" style="top: ${top}px; left: 0;">${dateStr}</div>`;
+            }
+            
+            // Add the grid
+            gridHTML += `<div class="habit-grid" style="grid-template-columns: repeat(${cols}, 1fr);">`;
+            
+            // First add empty cells for days before habit started
+            for (let i = 0; i < actualStartDay; i++) {
+                const cellDate = new Date(startDate);
+                cellDate.setDate(cellDate.getDate() + i);
+                const dateStr = formatDate(cellDate);
+                gridHTML += `<div class="day-cell empty" title="${dateStr} - Not tracking yet"></div>`;
+            }
+            
+            // Then add the actual habit data cells
+            for (let i = 0; i < habit.data.length; i++) {
+                const cellDate = new Date(startDate);
+                cellDate.setDate(cellDate.getDate() + actualStartDay + i);
+                const dateStr = formatDate(cellDate);
+                
+                gridHTML += `<div class="day-cell ${habit.data[i] === 1 ? 'active' : 'inactive'}" 
+                                 data-index="${i}"
+                                 title="${dateStr}"></div>`;
+            }
+            
+            // Fill remaining cells in the last row if needed
+            const totalCells = rows * cols;
+            const cellsCreated = actualStartDay + habit.data.length;
+            for (let i = cellsCreated; i < totalCells; i++) {
+                gridHTML += `<div style="width: 30px; height: 30px;"></div>`;
+            }
+            
+            gridHTML += `</div></div></div>`;
+            
+            mainContent.innerHTML = gridHTML;
+            
+            // Add click handlers to toggle days (only for non-empty cells)
+            mainContent.querySelectorAll('.day-cell:not(.empty)').forEach(cell => {
+                cell.addEventListener('click', function() {
+                    const dayIndex = parseInt(this.dataset.index);
+                    const currentValue = habitsData[currentHabitIndex].data[dayIndex];
+                    habitsData[currentHabitIndex].data[dayIndex] = currentValue === 1 ? 0 : 1;
+                    
+                    // Update completed count
+                    habitsData[currentHabitIndex].completed = habitsData[currentHabitIndex].data.filter(v => v === 1).length;
+                    
+                    // Toggle visual state
+                    this.classList.toggle('active');
+                    this.classList.toggle('inactive');
+                    
+                    markAsChanged(); // Mark as changed when toggling days
+                    
+                    // Update sidebar
+                    updateSidebar();
+                });
+            });
+            
+            // Update active state in sidebar
+            updateSidebar();
+        }
+
+        // Format date as "24 July 2025"
+        function formatDate(date) {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const day = date.getDate();
+            const month = months[date.getMonth()];
+            const year = date.getFullYear();
+            return `${day} ${month} ${year}`;
+        }
+
+        // Save current state to CSV
+        document.getElementById('saveButton').addEventListener('click', function() {
+            const csvContent = habitsData.map(habit => habit.data.join(',')).join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'habits_' + new Date().toISOString().split('T')[0] + '.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>

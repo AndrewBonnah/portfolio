@@ -405,8 +405,7 @@ document.querySelectorAll('img').forEach((img) => {
   const heading = document.getElementById('intro-heading');
   if (heading) {
     const funnyTexts = [
-        "Hi, I'm Trouble!",
-        "Professional Googler.",
+        "Newman...",
         "I turn coffee into code.",
         "Not a robot, probably.",
         "Here for the snacks."
